@@ -64,10 +64,7 @@
         <!-- Address Line 1 -->
         <mat-form-field appearance="fill" class="full-width" class="form-items">
             <mat-label>Address Line 2</mat-label>
-            <input matInput formControlName="payee_address_line_2" required />
-            @if (paymentForm.get('payee_address_line_2')?.hasError('required')) {
-            <mat-error> Address Line 2 is required</mat-error>
-            }
+            <input matInput formControlName="payee_address_line_2" />
         </mat-form-field>
 
         <!-- City -->
@@ -82,10 +79,7 @@
         <!-- province  -->
         <mat-form-field appearance="fill" class="full-width" class="form-items">
             <mat-label>Province or State</mat-label>
-            <input matInput formControlName="payee_province_or_state" required />
-            @if (paymentForm.get('payee_province_or_state')?.hasError('required')) {
-            <mat-error>Province/state is required.</mat-error>
-            }
+            <input matInput formControlName="payee_province_or_state" />
         </mat-form-field>
 
         <!-- Country -->
@@ -138,19 +132,13 @@
         <!-- tax percent -->
         <mat-form-field appearance="fill" class="full-width" class="form-items">
             <mat-label>Tax Percent</mat-label>
-            <input matInput formControlName="tax_percent" required />
-            @if (paymentForm.get('tax_percent')?.hasError('required')) {
-            <mat-error>Tax percent is required.</mat-error>
-            }
+            <input matInput type="number" formControlName="tax_percent"/>
         </mat-form-field>
 
         <!-- discount percent -->
         <mat-form-field appearance="fill" class="full-width" class="form-items">
             <mat-label>Discount Percent</mat-label>
-            <input matInput formControlName="discount_percent" required />
-            @if (paymentForm.get('discount_percent')?.hasError('required')) {
-            <mat-error>Discount percent is required.</mat-error>
-            }
+            <input matInput  type="number"  formControlName="discount_percent"/>
         </mat-form-field>
 
         <!-- Submit Button -->

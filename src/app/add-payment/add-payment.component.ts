@@ -40,16 +40,17 @@ export class AddPaymentComponent {
       due_amount: ['', [Validators.required, Validators.min(0.01)]],
       payee_payment_status: ['pending', Validators.required],
       payee_address_line_1: ['', Validators.required],
-      payee_address_line_2: ['', Validators.required],
+      payee_address_line_2: [''],
       payee_city: ['', Validators.required],
-      payee_province_or_state: ['', Validators.required],
+      payee_province_or_state: [''],
       payee_country: ['', Validators.required],
       payee_postal_code: ['', Validators.required],
       payee_phone_number: ['', Validators.required],
       payee_email: ['', [Validators.required, Validators.email]],
       currency: ['', Validators.required],
-      tax_percent: ['', Validators.required],
-      discount_percent: ['', Validators.required],
+      tax_percent: [''],
+      discount_percent: [''],
+      id: ['']
     });
   }
   submitPayment(): void {
@@ -71,6 +72,15 @@ export class AddPaymentComponent {
           'en-US'
         );
       }
+
+      if (formData.discount_percent === '') {
+        formData.discount_percent = 0
+      }
+
+      if (formData.tax_percent === '') {
+        formData.tax_percent = 0
+      }
+      formData.id = '0';
 
       this.paymentService.createPayment(formData).subscribe({
         next: (response) => {

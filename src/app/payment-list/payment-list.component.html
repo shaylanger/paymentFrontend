@@ -14,7 +14,7 @@
 
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_first_name + row.payee_last_name}}</td>
+                <td mat-cell *matCellDef="let row">{{row.payee_first_name + " " + row.payee_last_name}}</td>
             </ng-container>
 
             <ng-container matColumnDef="payee_payment_status">

@@ -36,7 +36,8 @@ export interface Payment {
 })
 export class PaymentService {
 
-  base_url = 'http://3.137.192.231:8000'
+  // base_url = 'http://3.137.192.231:8000'
+  base_url = 'http://localhost:8000'
 
   constructor(
     private readonly http: HttpClient
@@ -53,7 +54,7 @@ export class PaymentService {
   }
 
   createPayment(payment: any): Observable<any> {
-      return this.http.post<any>(this.base_url, payment, {
+      return this.http.post<any>(`${this.base_url}/payment`, payment, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       });
   }
