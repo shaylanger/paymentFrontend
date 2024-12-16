@@ -36,8 +36,7 @@ export interface Payment {
 })
 export class PaymentService {
 
-  // base_url = 'http://3.137.192.231:8000'
-  base_url = 'http://localhost:8000'
+  base_url = 'http://3.137.192.231:8000'
 
   constructor(
     private readonly http: HttpClient
