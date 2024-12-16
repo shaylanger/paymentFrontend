@@ -35,7 +35,6 @@ readonly dialogRef = inject(MatDialogRef<EditPaymentComponent>);
   });
 
   onNoClick(): void {
-    console.log(this.data.payment.payee_payment_status)
     this.dialogRef.close();
   }
 

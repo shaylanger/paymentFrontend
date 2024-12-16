@@ -1,1 +1,166 @@
-<p>add-payment works!</p>
+<div class="container">
+    <h2 class="title">Add Payment</h2>
+    <form [formGroup]="paymentForm" (ngSubmit)="submitPayment()" class="form-layout">
+        <!-- First Name -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="payee_first_name" required />
+            @if (paymentForm.get('payee_first_name')?.hasError('required')) {
+            <mat-error>First name is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Last Name -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="payee_last_name" required />
+            @if (paymentForm.get('payee_last_name')?.hasError('required')) {
+            <mat-error>Last name is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- added Date -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Added Date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="payee_added_date_utc" required />
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            @if (paymentForm.get('payee_added_date_utc')?.hasError('required')) {
+            <mat-error>Added date is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Due Date -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Due Date</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="payee_due_date" required />
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            @if (paymentForm.get('payee_due_date')?.hasError('required')) {
+            <mat-error>Due date is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Due Amount -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Due Amount</mat-label>
+            <input matInput type="number" formControlName="due_amount" required />
+            @if (paymentForm.get('due_amount')?.hasError('required')) {
+            <mat-error> Due amount is required..</mat-error>
+            } @if (paymentForm.get('due_amount')?.hasError('min')) {
+            <mat-error> Due amount must be greater than 0.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Address Line 1 -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Address Line 1</mat-label>
+            <input matInput formControlName="payee_address_line_1" required />
+            @if (paymentForm.get('payee_address_line_1')?.hasError('required')) {
+            <mat-error> Address Line 1 is required</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Address Line 1 -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Address Line 2</mat-label>
+            <input matInput formControlName="payee_address_line_2" required />
+            @if (paymentForm.get('payee_address_line_2')?.hasError('required')) {
+            <mat-error> Address Line 2 is required</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- City -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="payee_city" required />
+            @if (paymentForm.get('payee_city')?.hasError('required')) {
+            <mat-error>City is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- province  -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Province or State</mat-label>
+            <input matInput formControlName="payee_province_or_state" required />
+            @if (paymentForm.get('payee_province_or_state')?.hasError('required')) {
+            <mat-error>Province/state is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Country -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="payee_country" required />
+            @if (paymentForm.get('payee_country')?.hasError('required')) {
+            <mat-error>Country is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Postal Code -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Postal Code</mat-label>
+            <input matInput formControlName="payee_postal_code" required />
+            @if (paymentForm.get('payee_postal_code')?.hasError('required')) {
+            <mat-error>Postal code is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Phone Number -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="payee_phone_number" required />
+            @if (paymentForm.get('payee_phone_number')?.hasError('required')) {
+            <mat-error>Phone number is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="payee_email" required />
+            @if (paymentForm.get('payee_email')?.hasError('required')) {
+            <mat-error>Email is required.</mat-error>
+            } @if (paymentForm.get('payee_email')?.hasError('email')) {
+            <mat-error>Invalid email format.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Currency -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Currency</mat-label>
+            <input matInput formControlName="currency" required />
+            @if (paymentForm.get('currency')?.hasError('required')) {
+            <mat-error>Currency is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- tax percent -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Tax Percent</mat-label>
+            <input matInput formControlName="tax_percent" required />
+            @if (paymentForm.get('tax_percent')?.hasError('required')) {
+            <mat-error>Tax percent is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- discount percent -->
+        <mat-form-field appearance="fill" class="full-width" class="form-items">
+            <mat-label>Discount Percent</mat-label>
+            <input matInput formControlName="discount_percent" required />
+            @if (paymentForm.get('discount_percent')?.hasError('required')) {
+            <mat-error>Discount percent is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <div class="actions" >
+            <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid" class="action-items form-items">
+                Submit
+            </button>
+            <button mat-raised-button color="warn" type="button" (click)="router.navigate([''])" class="action-items form-items">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
