@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Edit Payment</h2>
+<mat-dialog-content>
+    <p>Update payment info</p>
+    <form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>due date</mat-label>
+        <input matInput required formControlName="due_date">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>due amount</mat-label>
+        <input matInput type="number" formControlName="due_amount" />
+        <span matTextPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option value="pending">Pending</mat-option>
+            <mat-option value="due_now">Due Now</mat-option>
+            <mat-option value="completed">Completed</mat-option>
+        </mat-select>
+    </mat-form-field>
+    </form>
+
+<p *ngIf="showError" class="error-text">Evidence must be provided for completed payments</p>
+<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+<div class="file-upload">
+    {{fileName || "Upload evidence"}}
+    <button mat-icon-button class="upload-btn" (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+    </button>
+</div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button (click)="onSave()" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

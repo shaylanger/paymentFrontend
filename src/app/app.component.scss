@@ -1,0 +1,70 @@
+table {
+    width: 900px;
+}
+
+.title {
+    padding-left: 20px;
+}
+
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.icon-warn {
+    color: red;
+}
+
+.example-table-container {
+    padding: 20px;
+    position: relative;
+    min-height: 200px;
+    overflow-y: clip;
+
+    .table-layout {
+        overflow-y: scroll;
+        overflow-x: scroll;
+        max-height: 500px;
+    }
+
+    .mat-mdc-row:hover .mat-mdc-cell {
+        background: whitesmoke;
+    }
+
+    .example-table {
+        max-width: 900px;
+        width: 900px;
+    }
+    
+    .example-container {
+        position: relative;
+    }
+
+    .example-loading-shade {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 56px;
+        right: 0;
+        background: rgba(0, 0, 0, 0.15);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .example-rate-limit-reached {
+        max-width: 360px;
+        text-align: center;
+    }
+
+    /* Column Widths */
+    .mat-column-number,
+    .mat-column-state {
+        width: 64px;
+    }
+
+    .mat-column-created {
+        width: 124px;
+    }
+}
