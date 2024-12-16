@@ -9,7 +9,7 @@
     </mat-form-field>
 
     <div class="table-layout">
-        <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="created" matSortDisableClear
+        <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="created" matSortDisableClear multiTemplateDataRows
             matSortDirection="desc">
 
             <ng-container matColumnDef="name">
@@ -20,61 +20,6 @@
             <ng-container matColumnDef="payee_payment_status">
                 <th mat-header-cell *matHeaderCellDef>Payment status</th>
                 <td mat-cell *matCellDef="let row">{{row.payee_payment_status}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_address_line_1">
-                <th mat-header-cell *matHeaderCellDef>Address line 1</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_address_line_1}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_address_line_2">
-                <th mat-header-cell *matHeaderCellDef>Address line 2</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_address_line_2}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_city">
-                <th mat-header-cell *matHeaderCellDef>City</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_city}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_country">
-                <th mat-header-cell *matHeaderCellDef>Country</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_country}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_province_or_state">
-                <th mat-header-cell *matHeaderCellDef>Province or state</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_province_or_state}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_postal_code">
-                <th mat-header-cell *matHeaderCellDef>Postal code</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_postal_code}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_phone_number">
-                <th mat-header-cell *matHeaderCellDef>Phone number</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_phone_number}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="payee_email">
-                <th mat-header-cell *matHeaderCellDef>Email</th>
-                <td mat-cell *matCellDef="let row">{{row.payee_email}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="currency">
-                <th mat-header-cell *matHeaderCellDef>Currency</th>
-                <td mat-cell *matCellDef="let row">{{row.currency}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="discount_percent">
-                <th mat-header-cell *matHeaderCellDef>discount_percent</th>
-                <td mat-cell *matCellDef="let row">{{row.discount_percent| number : '1.2-2'}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="tax_percent">
-                <th mat-header-cell *matHeaderCellDef>tax_percent</th>
-                <td mat-cell *matCellDef="let row">{{row.tax_percent | number : '1.2-2'}}</td>
             </ng-container>
 
             <ng-container matColumnDef="due_amount">
@@ -121,10 +66,48 @@
                 </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button aria-label="expand row"
+                        (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                        @if (expandedElement === element) {
+                        <mat-icon>keyboard_arrow_up</mat-icon>
+                        } @else {
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                        }
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                    <div class="expand-layout" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <p class="details"><b>Address line 1: </b>{{element.payee_address_line_1 }}</p>
+                        <p class="details"><b>Address line 2: </b>{{element.payee_address_line_2 }}</p>
+                        <p class="details"><b>City: </b>{{element.payee_city }}</p>
+                        <p class="details"><b>Country: </b>{{element.payee_country }}</p>
+                        <p class="details"><b>Province_or_state:</b> {{element.payee_province_or_state }}</p>
+                        <p class="details"><b>Postal_code: </b>{{element.payee_postal_code }}</p>
+                        <p class="details"><b>Phone_number: </b>{{element.payee_phone_number }}</p>
+                        <p class="details"><b>Email: </b>{{element.payee_email }}</p>
+                        <p class="details"><b>Currency: </b>{{element.currency }}</p>
+                        <p class="details"><b>Discount percent: </b>{{element.discount_percent| number : '1.2-2' }}</p>
+                        <p class="details"><b>Tax percent: </b>{{element.tax_percent | number : '1.2-2' }}</p>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand; sticky: true"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>
     </div>
+    
 
     <mat-paginator [length]="resultsLength" [pageSize]="30" aria-label="Select page of search results">
     </mat-paginator>

@@ -14,21 +14,31 @@ import {
 import { Payment, PaymentService } from '../payment.service';
 import { EditPaymentComponent } from '../edit-payment/edit-payment.component';
 import { Router } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-payment-list',
   imports: [MatPaginatorModule, MatTableModule, MatFormFieldModule,CommonModule, DatePipe, MatProgressSpinnerModule, MatInputModule, DecimalPipe,MatIconModule, MatButtonModule],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
  templateUrl: './payment-list.component.html',
   styleUrl: './payment-list.component.scss'
 })
 export class PaymentListComponent {
-  displayedColumns: string[] = ['name','payee_payment_status','payee_added_date_utc','payee_due_date','payee_address_line_1','payee_address_line_2','payee_city','payee_country','payee_province_or_state','payee_postal_code','payee_phone_number','payee_email','currency','discount_percent','tax_percent','due_amount','total_due', 'edit', 'download','delete'];
+  displayedColumns: string[] = ['name','payee_payment_status','payee_added_date_utc','payee_due_date','due_amount','total_due', 'edit', 'download','delete'];
+  columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
   data: Payment[] = [];
 
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
   search$$ = new BehaviorSubject<string>('');
+  expandedElement: Payment | null
 
   readonly dialog = inject(MatDialog);
   @ViewChild(MatPaginator) paginator: MatPaginator;
